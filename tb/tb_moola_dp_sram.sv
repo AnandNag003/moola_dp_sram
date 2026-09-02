@@ -66,6 +66,12 @@ module tb_moola_dp_sram;
     .rdata_b (rdata_b)
   );
 
+
+initial begin
+  $dumpfile("moola_dp_sram.vcd");
+  $dumpvars(0, tb_moola_dp_sram);
+end 
+
   // -------------------------------------------------------------------------
   // Clocks: Dual independent clock domains
   // -------------------------------------------------------------------------

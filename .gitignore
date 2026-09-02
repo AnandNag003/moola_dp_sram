@@ -1,0 +1,5 @@
+# Editor settings
+.vscode/
+
+# PDK Liberty timing libraries
+*.lib
