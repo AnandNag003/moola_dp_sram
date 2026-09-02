@@ -1,0 +1,12 @@
+read_verilog synth/synth_input.v
+hierarchy -check -top moola_dp_sram_syn
+flatten
+proc
+opt
+synth -top moola_dp_sram_syn -flatten
+dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+opt
+abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr synth/moola_dp_sram.vg
