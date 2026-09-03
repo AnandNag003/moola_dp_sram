@@ -187,7 +187,6 @@ Remove intermediate build files, logs, and simulation binaries:
 
 Bash
 make clean
-
 Acknowledgments & References
 Open-Source Synthesis Flow & PDK Setup: The ASIC logic synthesis (Yosys) and static timing analysis (OpenSTA) automation in this project builds upon the open-source toolchain setup and SkyWater 130nm library framework developed by the University of Michigan (RISC-M Lab) in the Open-Source-Synthesis initiative.
 
