@@ -160,39 +160,41 @@ $$T_{\text{crit}} = 10.0\,\text{ns} - 4.20\,\text{ns} = 5.80\,\text{ns} \implies
 Quickstart Guide & Make Targets
 Ensure open-source EDA tools are installed (iverilog, sv2v, yosys, opensta, and surfer or gtkwave).
 
-1. Run Functional Simulation
+1. Run Functional Simulation: 
 Compile the RTL and testbench, execute the self-checking regression test, and verify the console log:
 
 ```Bash
 make simulate 
 ```
 
-2. Inspect Waveforms
+2. Inspect Waveforms:
 Run the simulation and automatically open the trace in Surfer (or GTKWave):
 
 ```Bash
 make wave
 ```
 
-3. Run Sky130 ASIC Synthesis
+3. Run Sky130 ASIC Synthesis:
 Lower the SystemVerilog source using sv2v, synthesize into standard cells with yosys, and generate synth/moola_dp_sram.vg:
 
-Bash
+```Bash
 make synth
-4. Run Static Timing & Power Analysis
+```
+
+4. Run Static Timing & Power Analysis:
 Perform timing closure and power extraction using opensta:
 
 ```Bash
 make sta
 ```
 
-5. Full End-to-End Pipeline
+5. Full End-to-End Pipeline:
 Execute simulation, synthesis, and STA in a single unified command:
 
 ```Bash
 make all
 ```
-6. Clean Artifacts
+6. Clean Artifacts:
 Remove intermediate build files, logs, and simulation binaries:
 
 ```Bash
