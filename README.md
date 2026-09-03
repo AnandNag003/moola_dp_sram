@@ -11,16 +11,26 @@ This repository contains the complete functional RTL, self-checking SystemVerilo
 
 ---
 
-### Adding the Block Diagram Earlier in the README
-
-To reference the diagram image in the **Architecture & Key Features** section, insert this line right above or below the ASCII diagram:
-
-```markdown
-![Moola DP-SRAM Architecture Block Diagram](moola_dp_sram_block_diagram.png)
+## Table of Contents
+- [Architecture & Key Features](#architecture--key-features)
+- [Module Interface & Pinout](#module-interface--pinout)
+- [Functional Verification & Simulation](#functional-verification--simulation)
+  - [Verification Waveform](#verification-waveform)
+  - [Validation Highlights](#validation-highlights)
+- [ASIC Implementation & Sky130 Synthesis](#asic-implementation--sky130-synthesis)
+  - [The `$mem_v2` Memory Lowering Strategy](#the-mem_v2-memory-lowering-strategy)
+  - [Synthesis Utilization & Cell Breakdown](#synthesis-utilization--cell-breakdown)
+- [Static Timing & Power Analysis (STA)](#static-timing--power-analysis-sta)
+  - [Setup & Hold Timing Margins](#setup--hold-timing-margins)
+  - [Power Consumption at 100 MHz](#power-consumption-at-100-mhz)
+- [Repository Structure](#repository-structure)
+- [Quickstart Guide & Make Targets](#quickstart-guide--make-targets)
 
 ---
 
 ## Architecture & Key Features
+
+![Moola DP-SRAM Architecture Block Diagram](moola_dp_sram_block_diagram.png)
 
 * **True Dual-Port Symmetry:** Symmetrical, independent read/write ports with dedicated clocks (`clk_a`, `clk_b`), enable lines (`en_a`, `en_b`), and byte-mask strobes (`wstrb_a`, `wstrb_b`).
 * **Byte-Granular Write Masking:** Native 4-bit write enables supporting byte (`SB`), half-word (`SH`), and full word (`SW`) memory operations compliant with the RV32I ISA without read-modify-write penalties.
@@ -85,8 +95,8 @@ When mapping true dual-port RAMs into standard cells, open-source toolchains fac
 ### Synthesis Utilization & Cell Breakdown
 * **Target Process:** SkyWater 130nm High-Density (`sky130_fd_sc_hd__tt_025C_1v80`)
 * **Total Mapped Standard Cells:** **11,526**
-* **Total Macro Silicon Area:** **$109,219.75\,\mu\text{m}^2$**
-* **Sequential Element Area:** **$42,280.55\,\mu\text{m}^2$** (38.71% of macro footprint)
+* **Total Macro Silicon Area:** **109,219.75 µm²**
+* **Sequential Element Area:** **42,280.55 µm²** (38.71% of macro footprint)
 
 | Cell Type | Instance Count | Microarchitectural Role |
 | :--- | :---: | :--- |
@@ -100,27 +110,30 @@ When mapping true dual-port RAMs into standard cells, open-source toolchains fac
 
 ## Static Timing & Power Analysis (STA)
 
-Timing analysis was performed using **OpenSTA** on the synthesized structural netlist (`synth/moola_dp_sram.vg`) under Typical-Typical process conditions ($1.8\text{V}$, $25^\circ\text{C}$) constrained to a **100 MHz** target clock ($10.0\text{ ns}$ period) with $0.5\text{ ns}$ I/O delays.
+Timing analysis was performed using **OpenSTA** on the synthesized structural netlist (`synth/moola_dp_sram.vg`) under Typical-Typical process conditions (1.8V, 25°C) constrained to a **100 MHz** target clock (10.0 ns period) with 0.5 ns I/O delays.
 
 ### Setup & Hold Timing Margins
 * **Worst Setup Slack:** **`+4.20 ns` (MET)**
-  * **Critical Path Data Delay:** $5.74\text{ ns}$
+  * **Critical Path Data Delay:** 5.74 ns
   * **Critical Path:** Primary input `addr_b[3]` $\rightarrow$ buffer `_09673_` $\rightarrow$ decoder tree $\rightarrow$ storage DFF `_20890_/D`.
   * **Maximum Achievable Clock Frequency ($F_{\max}$):**
-    $$T_{\text{crit}} = 10.0\text{ ns} - 4.20\text{ ns} = 5.80\text{ ns} \implies \mathbf{F_{\max} \approx 172.4\text{ MHz}}$$
+
+$$T_{\text{crit}} = 10.0\,\text{ns} - 4.20\,\text{ns} = 5.80\,\text{ns} \implies \mathbf{F_{\max} \approx 172.4\,\text{MHz}}$$
+
 * **Worst Hold Slack:** **`+0.42 ns` (MET)**
   * Positive hold margin verified between internal register stages under ideal clock network modeling.
 
 ### Power Consumption at 100 MHz
-* **Total Power Dissipation:** **$12.31\text{ mW}$**
-  * **Sequential Internal & Switching Power:** $10.08\text{ mW}$ ($81.8\%$) — driven by 2,112 active clock pins.
-  * **Combinational Power:** $2.23\text{ mW}$ ($18.2\%$).
-  * **Static Leakage:** $40.5\text{ nW}$ ($<0.01\%$).
+* **Total Power Dissipation:** **12.31 mW**
+  * **Sequential Internal & Switching Power:** 10.08 mW (81.8%) — driven by 2,112 active clock pins.
+  * **Combinational Power:** 2.23 mW (18.2%).
+  * **Static Leakage:** 40.5 nW (<0.01%).
 
 ---
 
 ## Repository Structure
 
+```text
 .
 ├── Makefile                          # Unified flow automation (Sim, Synth, STA)
 ├── README.md                         # Project documentation & benchmark metrics
@@ -132,9 +145,8 @@ Timing analysis was performed using **OpenSTA** on the synthesized structural ne
 │   ├── tb_moola_dp_sram.sv           # Self-checking SystemVerilog testbench
 │   └── mem_test.hex                  # Test hex initialization image
 ├── docs/
-│   ├── MOOLA_DP_SRAM_SPEC.md        # Complete microarchitecture specification
 │   └── assets/
-│       └── sram_sim_waveform.png      # Functional simulation waveform trace
+│       └── sram_sim_waveform.png     # Functional simulation waveform trace
 ├── scripts/
 │   ├── synth.ys                      # Yosys synthesis and standard cell mapping script
 │   └── sta.tcl                       # OpenSTA timing and power constraints script
@@ -142,38 +154,29 @@ Timing analysis was performed using **OpenSTA** on the synthesized structural ne
 │   └── moola_dp_sram_syn.sv          # Single-clock ASIC synthesis wrapper
 └── sim/                              # Simulation executables & VCD traces (gitignored)
 
+Quickstart Guide & Make Targets
+Ensure open-source EDA tools are installed (iverilog, sv2v, yosys, opensta, and surfer or gtkwave).
 
----
-
-## Quickstart Guide & Make Targets
-
-Ensure the open-source EDA tools are installed (`iverilog`, `sv2v`, `yosys`, `opensta`, and `surfer` or `gtkwave`).
-
-### 1. Run Functional Simulation
+1. Run Functional Simulation
 Compile the RTL and testbench, execute the self-checking regression test, and verify the console log:
-```bash
 make simulate
+
 2. Inspect Waveforms
 Run the simulation and automatically open the trace in Surfer (or GTKWave):
-
 make wave
+
 3. Run Sky130 ASIC Synthesis
 Lower the SystemVerilog source using sv2v, synthesize into standard cells with yosys, and generate synth/moola_dp_sram.vg:
-
-Bash
 make synth
+
 4. Run Static Timing & Power Analysis
 Perform timing closure and power extraction using opensta:
-
-Bash
 make sta
+
 5. Full End-to-End Pipeline
 Execute simulation, synthesis, and STA in a single unified command:
-
-Bash
 make all
+
 6. Clean Artifacts
 Remove intermediate build files, logs, and simulation binaries:
-
-Bash
 make clean
