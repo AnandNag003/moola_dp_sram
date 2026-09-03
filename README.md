@@ -62,7 +62,7 @@ This repository contains the complete functional RTL, self-checking SystemVerilo
 The IP is verified using a rigorous, self-checking SystemVerilog testbench (`tb/tb_moola_dp_sram.sv`) executed via Icarus Verilog (`iverilog`) and inspected using the native modern waveform viewer **Surfer** (or GTKWave).
 
 ### Verification Waveform
-![Moola DP-SRAM Functional Simulation Waveform](docs/assets/sram_sim_waveform.png)
+![Moola DP-SRAM Functional Simulation Waveform](docs/assets/moola_dp_sram_waveform.png)
 
 ### Validation Highlights
 1. **Hex Preload & Dual Asynchronous Reads (0 ps – 35,000 ps):**
