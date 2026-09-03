@@ -180,3 +180,10 @@ make all
 6. Clean Artifacts
 Remove intermediate build files, logs, and simulation binaries:
 make clean
+
+---
+
+## Acknowledgments & References
+
+* **Open-Source Synthesis Flow & PDK Setup:** The ASIC logic synthesis (`Yosys`) and static timing analysis (`OpenSTA`) automation in this project builds upon the open-source toolchain setup and SkyWater 130nm library framework developed by the **University of Michigan (RISC-M Lab)** in the [Open-Source-Synthesis](https://github.com/RISC-M/Open-Source-Synthesis) initiative.
+* **Tools Ecosystem:** Gratitude to the developers and maintainers of [Icarus Verilog](https://github.com/steveicarus/iverilog), [sv2v](https://github.com/zachjs/sv2v), [Yosys](https://github.com/YosysHQ/yosys), [OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA), and [Surfer](https://gitlab.com/surfer-project/surfer).
