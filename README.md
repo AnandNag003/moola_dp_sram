@@ -31,7 +31,7 @@ This repository contains the complete functional RTL, self-checking SystemVerilo
 
 ## Architecture & Key Features
 
-![Moola DP-SRAM Architecture Block Diagram](moola_dp_sram_block_diagram.png)
+![Moola DP-SRAM Architecture Block Diagram](docs/assets/moola_dp_sram_block_diagram.png)
 
 * **True Dual-Port Symmetry:** Symmetrical, independent read/write ports with dedicated clocks (`clk_a`, `clk_b`), enable lines (`en_a`, `en_b`), and byte-mask strobes (`wstrb_a`, `wstrb_b`).
 * **Byte-Granular Write Masking:** Native 4-bit write enables supporting byte (`SB`), half-word (`SH`), and full word (`SW`) memory operations compliant with the RV32I ISA without read-modify-write penalties.
@@ -147,7 +147,8 @@ $$T_{\text{crit}} = 10.0\,\text{ns} - 4.20\,\text{ns} = 5.80\,\text{ns} \implies
 │   └── mem_test.hex                  # Test hex initialization image
 ├── docs/
 │   └── assets/
-│       └── moola_dp_sram_waveform.png # Functional simulation waveform trace
+│       └── moola_dp_sram_block_diagram.png # Architectural block diagram
+        └── moola_dp_sram_waveform.png # Functional simulation waveform trace
 ├── scripts/
 │   ├── synth.ys                      # Yosys synthesis and standard cell mapping script
 │   └── sta.tcl                       # OpenSTA timing and power constraints script
