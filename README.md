@@ -180,6 +180,7 @@ make all
 6. Clean Artifacts
 Remove intermediate build files, logs, and simulation binaries:
 make clean
+'''
 
 ---
 
