@@ -25,6 +25,7 @@ This repository contains the complete functional RTL, self-checking SystemVerilo
   - [Power Consumption at 100 MHz](#power-consumption-at-100-mhz)
 - [Repository Structure](#repository-structure)
 - [Quickstart Guide & Make Targets](#quickstart-guide--make-targets)
+- [Acknowledgments & References](#acknowledgments--references)
 
 ---
 
@@ -146,45 +147,48 @@ $$T_{\text{crit}} = 10.0\,\text{ns} - 4.20\,\text{ns} = 5.80\,\text{ns} \implies
 │   └── mem_test.hex                  # Test hex initialization image
 ├── docs/
 │   └── assets/
-│       └── sram_sim_waveform.png     # Functional simulation waveform trace
+│       └── moola_dp_sram_waveform.png # Functional simulation waveform trace
 ├── scripts/
 │   ├── synth.ys                      # Yosys synthesis and standard cell mapping script
 │   └── sta.tcl                       # OpenSTA timing and power constraints script
 ├── synth/
 │   └── moola_dp_sram_syn.sv          # Single-clock ASIC synthesis wrapper
 └── sim/                              # Simulation executables & VCD traces (gitignored)
-
 Quickstart Guide & Make Targets
 Ensure open-source EDA tools are installed (iverilog, sv2v, yosys, opensta, and surfer or gtkwave).
 
 1. Run Functional Simulation
 Compile the RTL and testbench, execute the self-checking regression test, and verify the console log:
-make simulate
 
+Bash
+make simulate
 2. Inspect Waveforms
 Run the simulation and automatically open the trace in Surfer (or GTKWave):
-make wave
 
+Bash
+make wave
 3. Run Sky130 ASIC Synthesis
 Lower the SystemVerilog source using sv2v, synthesize into standard cells with yosys, and generate synth/moola_dp_sram.vg:
-make synth
 
+Bash
+make synth
 4. Run Static Timing & Power Analysis
 Perform timing closure and power extraction using opensta:
-make sta
 
+Bash
+make sta
 5. Full End-to-End Pipeline
 Execute simulation, synthesis, and STA in a single unified command:
-make all
 
+Bash
+make all
 6. Clean Artifacts
 Remove intermediate build files, logs, and simulation binaries:
+
+Bash
 make clean
-'''
 
----
+Acknowledgments & References
+Open-Source Synthesis Flow & PDK Setup: The ASIC logic synthesis (Yosys) and static timing analysis (OpenSTA) automation in this project builds upon the open-source toolchain setup and SkyWater 130nm library framework developed by the University of Michigan (RISC-M Lab) in the Open-Source-Synthesis initiative.
 
-## Acknowledgments & References
-
-* **Open-Source Synthesis Flow & PDK Setup:** The ASIC logic synthesis (`Yosys`) and static timing analysis (`OpenSTA`) automation in this project builds upon the open-source toolchain setup and SkyWater 130nm library framework developed by the **University of Michigan (RISC-M Lab)** in the [Open-Source-Synthesis](https://github.com/RISC-M/Open-Source-Synthesis) initiative.
-* **Tools Ecosystem:** Gratitude to the developers and maintainers of [Icarus Verilog](https://github.com/steveicarus/iverilog), [sv2v](https://github.com/zachjs/sv2v), [Yosys](https://github.com/YosysHQ/yosys), [OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA), and [Surfer](https://gitlab.com/surfer-project/surfer).
+Tools Ecosystem: Gratitude to the developers and maintainers of Icarus Verilog, sv2v, Yosys, OpenSTA, and Surfer.
